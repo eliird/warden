@@ -31,6 +31,7 @@ void help(){
 
 }
 
+
 void createSettingsFile(){
     //check if the setting file already exists
 
@@ -44,6 +45,7 @@ void createSettingsFile(){
     settingFile << "ENV_NAME: " << ENV_NAME << std::endl;
     std::filesystem::create_directory(ENV_NAME);
 }
+
 
 void installRequirements(){
       // Check if requirements.txt exists
@@ -279,7 +281,7 @@ void run(int argc, char **argv){
     // uninstall command
     else if (equals(command, std::string("uninstall"))){
         if(argc > 2)
-            installPackage(std::string(argv[2]));
+            uninstallPackage(std::string(argv[2]));
         else {
             std::cerr << "Please provide a valid package name to execute" << std::endl;
             exit(-1);
@@ -300,7 +302,6 @@ void run(int argc, char **argv){
         help();
     }
 }
-
 
 
 int main(int argc, char **argv){
