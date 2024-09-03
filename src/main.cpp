@@ -49,9 +49,15 @@ void installRequirements(){
         // Install packages from requirements.txt
         std::string install_command;
         
-        // For Linux/Mac
-        install_command = ENV_NAME + "/bin/pip install -r requirements.txt";
         
+        // For Linux/Mac
+    #ifdef _WIN32
+        // Windows-specific virtual environment activation and execution
+        install_command = "cmd.exe /C \"" +  ENV_NAME + "\\Scripts\\pip install -r requirements.txt";
+    #else
+    // Linux/Unix-specific virtual environment activation and execution
+        install_command = ENV_NAME + "bin/pip install -r requirements.txt";
+    #endif   
         // For Windows, use the following line instead
         // install_command = ENV_NAME + "\\Scripts\\pip install -r requirements.txt";
         
@@ -148,8 +154,15 @@ void updatePip(){
     }
 
     std::string install_command;
-        
+    
+#ifdef _WIN32
+    // Windows-specific virtual environment activation and execution
+    install_command = "cmd.exe /C \"" +  ENV_NAME + "\\Scripts\\pip install --upgrade pip";
+#else
+    // Linux/Unix-specific virtual environment activation and execution
     install_command = ENV_NAME + "/bin/pip install --upgrade pip";
+#endif
+
     int result = system(install_command.c_str());
     if (result != 0) {
         std::cerr << "Error updating pip" << std::endl;
@@ -166,8 +179,14 @@ void installPackage(std::string packageName){
     }
 
     std::string install_command;
-        
+#ifdef _WIN32
+    // Windows-specific virtual environment activation and execution
+    install_command = "cmd.exe /C \"" +  ENV_NAME + "\\bin\\pip install " + packageName;
+#else
+    // Linux/Unix-specific virtual environment activation and execution
     install_command = ENV_NAME + "/bin/pip install " + packageName;
+#endif
+
     int result = system(install_command.c_str());
     if (result != 0) {
         std::cerr << "Error installing packages " << packageName << std::endl;
