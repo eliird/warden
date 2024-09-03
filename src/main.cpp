@@ -7,7 +7,7 @@
 #include <windows.h>  // For Windows-specific functions (optional)
 #endif
 
-std::string ENV_NAME = "env";
+std::string ENV_NAME = "wardenEnv";
 const std::string SETTING_FILENAME = ".configWarden.ini";
 
 bool equals(const std::string &a, const std::string &b){
@@ -225,6 +225,19 @@ void uninstallPackage(std::string packageName){
     exit(0);
 }
 
+void cleanup(){
+    if(std::filesystem::exists(SETTING_FILENAME)){
+        readEnvName();
+        if (std::filesystem::exists(ENV_NAME)){
+            std::filesystem::remove_all(ENV_NAME);
+        }
+        std::filesystem::remove_all(SETTING_FILENAME);
+        exit(0);
+    } else{
+        std::cerr << "No environment created by warden exists!\n";
+        exit(0);
+    }
+}
 
 
 void run(int argc, char **argv){
@@ -275,7 +288,13 @@ void run(int argc, char **argv){
     //update command
     else if (equals(command, std::string("update"))){        
         updatePip();
-    } else{
+    } 
+    // cleanup
+    else if (equals(command, std::string("clean"))){        
+        cleanup();
+    } 
+    // command not found
+    else{
 
         std::cerr << "Invalid Command Refere to the help section.\n\n";
         help();
@@ -283,10 +302,14 @@ void run(int argc, char **argv){
 }
 
 
+
 int main(int argc, char **argv){
     
     if(std::filesystem::exists(SETTING_FILENAME)){
         readEnvName();
+        if (!std::filesystem::exists(ENV_NAME)){
+            setup();
+        }
     }
 
     run(argc, argv);

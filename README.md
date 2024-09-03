@@ -11,7 +11,7 @@ Warden can be used to:
 # Installation
 
 ## Linux
-    ```
+    ```shell
     git clone https://github.com/eliird/warden
     ./build.sh
     ./install.sh
@@ -31,7 +31,21 @@ Building From Source:
     - Place the executable in a folder that is in environment path variable or add it to the environment path.
     - You can also place it in the project directory and use it from there to maintain the environment.
 
+# Example
+ 
+```shell
 
+mkdir test
+
+warden setup test_env # creates a new environment with the name of test_env if there is a requirements.txt availabel all packages install automatically
+
+echo "print(hello world)" >> test.py  # create a test script
+warden run test.py # to execute the script
+
+warden install numpy # install a package to the environment
+
+warden clean # delets the environment
+```
 
 # Usage
 
@@ -41,19 +55,16 @@ Creates a new environment in the directory the command is run from.
 You can also give this environment a name.
 If there is a `requirements.txt` available, it automatically installs all the listed packages in the environment.
 
-```
-
-> warden setup
-
-> warden setup env_name
-
+```shell
+warden setup
+warden setup env_name
 ```
 
 ## install
 
 This command can be used to install additional packages to the environment.
 
-```
+```shell
 warden install numpy==1.21
 
 warden install matplotlib
@@ -64,7 +75,7 @@ warden install matplotlib
 
 This command can be used to upgrade the pip to the latest version
 
-```
+```shell
 
 warden update
 
@@ -77,7 +88,7 @@ This command can be used to uninstall packages from the environment
 
 
 
-```
+```shell
 
 warden uninstall numpy
 
@@ -88,7 +99,7 @@ warden uninstall numpy
 
 This command executes the python script with the setup environment
 
-```
+```shell
 
 warden run main.py
 
@@ -97,7 +108,15 @@ warden run main.py
 This can be executed from the directory where environment was created
 
 
-# Removing the Environment
+## deleting the environment
+
+```shell
+
+warden clean
+
+```
+
+## Removing the Environment Manually
 
 To delete the environment
     - Delete the foder with the environment name default is `env`
