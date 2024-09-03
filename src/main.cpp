@@ -60,6 +60,7 @@ void installRequirements(){
     #ifdef _WIN32
         // Windows-specific virtual environment activation and execution
         install_command = "cmd.exe /C \"" +  ENV_NAME + "\\Scripts\\pip install -r requirements.txt";
+
     #else
     // Linux/Unix-specific virtual environment activation and execution
         install_command = ENV_NAME + "bin/pip install -r requirements.txt";
@@ -186,7 +187,7 @@ void installPackage(std::string packageName){
     std::string install_command;
 #ifdef _WIN32
     // Windows-specific virtual environment activation and execution
-    install_command = "cmd.exe /C \"" +  ENV_NAME + "\\bin\\pip install " + packageName;
+    install_command = "cmd.exe /C \"" +  ENV_NAME + "\\Scripts\\pip install " + packageName;
 #else
     // Linux/Unix-specific virtual environment activation and execution
     install_command = ENV_NAME + "/bin/pip install " + packageName;
@@ -210,7 +211,7 @@ void uninstallPackage(std::string packageName){
     std::string install_command;
 #ifdef _WIN32
     // Windows-specific virtual environment activation and execution
-    install_command = "cmd.exe /C \"" +  ENV_NAME + "\\bin\\pip uninstall " + packageName;
+    install_command = "cmd.exe /C \"" +  ENV_NAME + "\\Scripts\\pip uninstall " + packageName;
 #else
     // Linux/Unix-specific virtual environment activation and execution
     install_command = ENV_NAME + "/bin/pip uninstall " + packageName;

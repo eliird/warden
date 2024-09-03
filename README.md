@@ -23,7 +23,7 @@ Easy Method:
 
 Building From Source:
     - Clone the directory `git clone https://github.com/eliird/warden`
-    
+
     - You need a terminal which can run cmake like `Developer Powershell for Vscode`.
     - Navigate to the cloned folder in the terminal.
     - Run the build.bat file.
@@ -95,3 +95,10 @@ warden run main.py
 ```
 
 This can be executed from the directory where environment was created
+
+
+# Removing the Environment
+
+To delete the environment
+    - Delete the foder with the environment name default is `env`
+    - Delete the `.configWarden.ini` file
