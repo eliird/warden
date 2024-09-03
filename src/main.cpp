@@ -20,7 +20,15 @@ bool equals(const std::string &a, const std::string &b){
 
 
 void help(){
-    std::cout << "invalid parameter count\n";
+    std::cout << "Warden has following commands available\n";
+
+    std::cout << "warden setup  -sets up a new environment in the env folder in the directory it is called from installing all the packages in requirements.txt\n";
+    std::cout << "warden setup name -sets up a new environment in the name folder in the directory it is called from installing all the packages in requirements.txt\n";
+    std::cout << "warden update  -updates the pip version\n";
+    std::cout << "warden install package_name  -installs the specific package to the environment\n";
+    std::cout << "warden uninstall package_name  -uninstalls the specific package to the environment\n";
+    std::cout << "warden run file.py  -executes the python script with the environment. Can only be executed from the directory environment was created in.\n";
+
 }
 
 void createSettingsFile(){
@@ -193,6 +201,31 @@ void installPackage(std::string packageName){
 }
 
 
+void uninstallPackage(std::string packageName){
+    if(! std::filesystem::exists(SETTING_FILENAME)){
+        std::cerr << "Cannot locate the config file. Create the environment with `warden setup`" << std::endl;
+        exit(-1);
+    }
+
+    std::string install_command;
+#ifdef _WIN32
+    // Windows-specific virtual environment activation and execution
+    install_command = "cmd.exe /C \"" +  ENV_NAME + "\\bin\\pip uninstall " + packageName;
+#else
+    // Linux/Unix-specific virtual environment activation and execution
+    install_command = ENV_NAME + "/bin/pip uninstall " + packageName;
+#endif
+
+    int result = system(install_command.c_str());
+    if (result != 0) {
+        std::cerr << "Could not uninstall package" << packageName << std::endl;
+        exit(-1);
+    }
+    exit(0);
+}
+
+
+
 void run(int argc, char **argv){
     if (argc < 2){
         help();
@@ -200,8 +233,12 @@ void run(int argc, char **argv){
     }
 
     std::string command = std::string(argv[1]);
+    
+    if(equals(command, std::string("help"))){
+        help();
+    }
     //setup command
-    if (equals(command, std::string("setup"))){
+    else if (equals(command, std::string("setup"))){
         if(argc > 2)
             ENV_NAME = argv[2];
         setup();
@@ -224,9 +261,23 @@ void run(int argc, char **argv){
             exit(-1);
         }
     }
+
+    // uninstall command
+    else if (equals(command, std::string("uninstall"))){
+        if(argc > 2)
+            installPackage(std::string(argv[2]));
+        else {
+            std::cerr << "Please provide a valid package name to execute" << std::endl;
+            exit(-1);
+        }
+    }
     //update command
     else if (equals(command, std::string("update"))){        
         updatePip();
+    } else{
+
+        std::cerr << "Invalid Command Refere to the help section.\n\n";
+        help();
     }
 }
 
