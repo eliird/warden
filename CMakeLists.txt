@@ -50,8 +50,12 @@ add_executable(warden ${SOURCES})
 # Specify where the executable will be installed
 install(TARGETS warden DESTINATION bin)
 
-# Install header files
-install(DIRECTORY include/ DESTINATION include)
+if(EXISTS "${PROJECT_SOURCE_DIR}/include")
+    # Install header files (ensure the directory exists)
+    install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/ DESTINATION include)
+else()
+    message(WARNING "Include directory does not exist; skipping installation of headers.")
+endif()
 
 # Define installation rules for different platforms
 if(WIN32)
