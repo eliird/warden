@@ -11,11 +11,11 @@ Warden can be used to:
 # Installation
 
 ## Linux
-    ```shell
-    git clone https://github.com/eliird/warden
-    ./build.sh
-    ./install.sh
-    ```
+```shell
+git clone https://github.com/eliird/warden
+./build.sh
+./install.sh
+```
 
 ## Windows
 Easy Method:
