@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.10)
 project(MyProject VERSION 1.0 LANGUAGES CXX)
 
 # Set the C++ standard to C++11 (or any other version you need)
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Add include directory
@@ -18,4 +18,4 @@ file(GLOB SOURCES "${PROJECT_SOURCE_DIR}/src/*.cpp")
 add_executable(warden ${SOURCES})
 
 # Optionally, link libraries if needed
-# target_link_libraries(MyExecutable PRIVATE SomeLibrary)
+target_link_libraries(warden fmt)
