@@ -22,12 +22,12 @@ bool equals(const std::string &a, const std::string &b){
 void help(){
     std::cout << "Warden has following commands available\n";
 
-    std::cout << "warden setup  -sets up a new environment in the env folder in the directory it is called from installing all the packages in requirements.txt\n";
-    std::cout << "warden setup name -sets up a new environment in the name folder in the directory it is called from installing all the packages in requirements.txt\n";
-    std::cout << "warden update  -updates the pip version\n";
-    std::cout << "warden install package_name  -installs the specific package to the environment\n";
-    std::cout << "warden uninstall package_name  -uninstalls the specific package to the environment\n";
-    std::cout << "warden run file.py  -executes the python script with the environment. Can only be executed from the directory environment was created in.\n";
+    std::cout << "warden setup  -sets up a new environment in the env folder in the directory it is called from installing all the packages in requirements.txt\n\n";
+    std::cout << "warden setup name -sets up a new environment in the name folder in the directory it is called from installing all the packages in requirements.txt\n\n";
+    std::cout << "warden update  -updates the pip version\n\n";
+    std::cout << "warden install package_name  -installs the specific package to the environment\n\n";
+    std::cout << "warden uninstall package_name  -uninstalls the specific package to the environment\n\n";
+    std::cout << "warden run file.py  -executes the python script with the environment. Can only be executed from the directory environment was created in.\n\n";
 
 }
 
@@ -63,7 +63,7 @@ void installRequirements(){
 
     #else
     // Linux/Unix-specific virtual environment activation and execution
-        install_command = ENV_NAME + "bin/pip install -r requirements.txt";
+        install_command = ENV_NAME + "/bin/pip install -r requirements.txt";
     #endif   
         // For Windows, use the following line instead
         // install_command = ENV_NAME + "\\Scripts\\pip install -r requirements.txt";
