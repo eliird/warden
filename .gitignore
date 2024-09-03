@@ -2,3 +2,4 @@ make/*
 .vscode/*
 env/*
 build/*
+wardenEnv/*
