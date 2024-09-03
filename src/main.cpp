@@ -2,8 +2,6 @@
 #include <string>
 #include <filesystem>
 #include <cstdlib>
-#include <sstream>
-#include <fmt/core.h>
 #include <fstream>
 #ifdef _WIN32
 #include <windows.h>  // For Windows-specific functions (optional)
@@ -87,7 +85,6 @@ void setup(){
 
     installRequirements();
 }
-
 
 
 void readEnvName(){
