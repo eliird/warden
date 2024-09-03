@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/warden.dir/src/main.cpp.o -o warden 

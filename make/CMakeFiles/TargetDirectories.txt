@@ -1,3 +1,0 @@
-/home/ird/ws_eliird/warden/make/CMakeFiles/warden.dir
-/home/ird/ws_eliird/warden/make/CMakeFiles/edit_cache.dir
-/home/ird/ws_eliird/warden/make/CMakeFiles/rebuild_cache.dir
