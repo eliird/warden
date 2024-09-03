@@ -47,10 +47,6 @@ file(GLOB SOURCES "${PROJECT_SOURCE_DIR}/src/*.cpp")
 # Create the executable
 add_executable(warden ${SOURCES})
 
-# Optionally, link libraries if needed
-find_package(fmt REQUIRED)
-target_link_libraries(warden PRIVATE fmt::fmt)
-
 # Specify where the executable will be installed
 install(TARGETS warden DESTINATION bin)
 
