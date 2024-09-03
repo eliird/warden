@@ -106,16 +106,30 @@ void readEnvName(){
 }
 
 
-void execute(const std::string&file_name){
-    if(! std::filesystem::exists(SETTING_FILENAME)){
+void execute(const std::string& file_name) {
+    // Check if the configuration file exists
+    if (!std::filesystem::exists(SETTING_FILENAME)) {
         std::cerr << "Cannot locate the config file. Create the environment with `warden setup`" << std::endl;
         exit(-1);
     }
 
-    std::string venvPath = fmt::format("{}/bin/activate", ENV_NAME); // Adjust this for Windows if needed
-    std::string command = "bash -c \"source " + venvPath + " && python " + file_name + "\"";
+    // Determine the command based on the platform
+    std::string command;
+    
+#ifdef _WIN32
+    // Windows-specific virtual environment activation and execution
+    std::string venvPath = ENV_NAME + "\\Scripts\\activate";  // Adjust path for Windows
+    command = "cmd.exe /C \"" + venvPath + " && python " + file_name + "\"";
+#else
+    // Linux/Unix-specific virtual environment activation and execution
+    std::string venvPath = ENV_NAME + "/bin/activate";  // Adjust path for Linux/Unix
+    command = "bash -c \"source " + venvPath + " && python " + file_name + "\"";
+#endif
 
+    // Print command for debugging purposes
     // std::cout << command << std::endl;
+
+    // Execute the command
     int result = system(command.c_str());
 
     if (result != 0) {
